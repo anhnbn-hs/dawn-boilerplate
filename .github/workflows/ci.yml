@@ -1,5 +1,8 @@
 name: CI
-on: [push]
+on: 
+  push:
+  pull_request:
+    branches: [main]
 jobs:
   lhci:
     name: Lighthouse
@@ -24,3 +27,17 @@ jobs:
         uses: shopify/theme-check-action@v1
         with:
           token: ${{ github.token }}
+
+          name: Format the code
+  format:
+    runs-on: ubuntu-latest
+    name: Format Files
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Prettier
+        run: npx prettier --write **/*.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
