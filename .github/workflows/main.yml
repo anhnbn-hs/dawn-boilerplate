@@ -1,0 +1,24 @@
+name: test
+on:
+  push:
+  pull_request:
+    branches: [main]
+jobs:
+  theme-check:
+    name: Theme Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Theme Check
+        uses: shopify/theme-check-action@v1
+        with:
+          token: ${{ github.token }}
+
+          name: Format the code
+  format:
+    runs-on: ubuntu-latest
+    name: Format Files
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prettier
+        run: npx prettier . --check
