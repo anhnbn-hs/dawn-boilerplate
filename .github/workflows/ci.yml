@@ -1,5 +1,5 @@
 name: CI
-on: 
+on:
   push:
   pull_request:
     branches: [main]
@@ -34,14 +34,7 @@ jobs:
     name: Format Files
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16"
       - name: Prettier
-        run: npx prettier . --write
+        run: npx prettier . --check
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
-        with:
-          commit_message: "style: format files"
