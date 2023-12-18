@@ -14,7 +14,6 @@ jobs:
         uses: shopify/theme-check-action@v1
         with:
           token: ${{ github.token }}
-
           name: Format the code
   format:
     runs-on: ubuntu-latest
